@@ -1,0 +1,16 @@
+.background-login {
+    background-color: #023047;
+    height: 100%;
+}
+.main-logo {
+    size: 12px;
+    margin: auto;
+    display: flex;
+    align-items: baseline;
+}
+.section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
