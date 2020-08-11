@@ -1,0 +1,17 @@
+.centered {
+    display: flex;
+    justify-content:center;
+    
+}
+
+.item{
+    display: block;
+    line-height: .1;
+    padding: .5rem 2.2rem;  
+    display: flex;
+    justify-content:space-between;
+}
+
+.bottom-space {
+    padding-bottom: 10%;
+}
