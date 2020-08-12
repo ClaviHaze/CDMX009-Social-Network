@@ -17,15 +17,10 @@ function Google({ history }) {
         history.push("/Profile")
         db.collection('user').doc(user.uid).set({
           email: user.email,
-          uid: user.uid
-        })
-        // const uid = app.auth().currentUser.uid;
-        // const getUser = {
-        //   email: user.email,
-        //   userName: user.displayName,
-        //   uid: uid,
-        // }
-        // db.collection("user").add(getUser);
+          uid: user.uid,
+          name: user.displayName,
+          photo: user.photoURL
+        })       
       })
       .catch(function (error) {
         const errorCode = error.code;

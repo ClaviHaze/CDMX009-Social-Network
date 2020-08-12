@@ -1,34 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Switch, Route, withRouter} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  withRouter,
+} from "react-router-dom";
 import WithAuthRoute from "./WithAuthRoute";
-import { auth, db } from './components/firebase/firebase';
-import Signin from './components/signin/Signin';
-import Signup from './components/signup/Signup';
-import Profile from './components/profile/Profile';
-import Feed from './components/feed/Feed';
-import Upload from './components/upload/Upload';
-import Topnavbar from './components/Topnavbar/Topnavbar';
-import './App.sass';
+import { auth, db } from "./components/firebase/firebase";
+import Signin from "./components/signin/Signin";
+import Signup from "./components/signup/Signup";
+import Profile from "./components/profile/Profile";
+import Feed from "./components/feed/Feed";
+import Upload from "./components/upload/Upload";
+import Topnavbar from "./components/Topnavbar/Topnavbar";
+import "./App.sass";
 
 function App() {
-
   const [firebaseUser, setFirebaseUser] = useState(false);
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
 
-  
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log(user);
+      console.log("esta es la 24", user);
       if (user) {
         setFirebaseUser(user);
+        console.log(firebaseUser);
       } else {
         setFirebaseUser(null);
       }
     });
     const getData = async () => {
       try {
-        const uid = auth.currentUser.uid;
-        console.log('yo merengues',uid)
+        const current = auth.currentUser;
+        if (!current) return;
+        const uid = current.uid;
+        console.log("yo merengues", uid);
         const data = await db.collection("user").doc(uid).get();
         console.log(data);
         const arrayData = { user: data.user, ...data.data() };
@@ -45,32 +51,28 @@ function App() {
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Signin/>
+          <Signin />
         </Route>
         <Route path="/Signup">
           <Signup />
         </Route>
-        <Route path="/Profile"> 
-          <Profile
-          userName = {userName} 
-          setUserName = {setUserName}
-          />
+        <Route path="/Profile">
+          <Profile userName={userName} setUserName={setUserName} firebaseUser={firebaseUser} setFirebaseUser={setFirebaseUser}/>
         </Route>
         <Route path="/Topnavbar">
           <Topnavbar />
         </Route>
         <Route path="/Upload">
-          <Upload/>
+          <Upload />
         </Route>
         <Route path="/Feed">
-          <Feed/>
+          <Feed />
         </Route>
       </Switch>
     </Router>
-  ) 
-  : ( 
+  ) : (
     <p>Cargando...</p>
-  )
+  );
 }
 
 export default App;

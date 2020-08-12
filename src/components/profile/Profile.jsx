@@ -4,8 +4,8 @@ import { withRouter } from "react-router-dom";
 import { db, app, auth } from "../firebase/firebase";
 import Bottomnavbar from "../../components/Bottomnavbar/Bottomnavbar";
 
-function Profile({ history }) {
-  const [photo, setPhoto] = useState("");
+function Profile({ history, uid, firebaseUser }) {
+  const [photo, setPhoto] = useState();
   const [name, setName] = useState([]);
   const [userName, setUserName] = useState("");
   const [bio, setBio] = useState("");
@@ -40,7 +40,15 @@ function Profile({ history }) {
     getData();
   }, []);
 
-  
+  //  const profileInfo = async () => {
+  //  await db.collection("user").doc(firebaseUser.uid).set({
+  //     // photo: photoURL,
+  //     name: name,
+  //     userName: userName,
+  //     biography: bio,
+  //     gender: gender,
+  //   })
+  //   };
 
   return (
     <div>
@@ -92,33 +100,33 @@ function Profile({ history }) {
             <h3> Información </h3>
           </div>
           <div className="has-text-centered has-text-black title is-6">
-            {name.map((item) => (
-              <td key={item.id} className="text-center">
+            {/* {name.map((item) => ( */}
+              <div className="text-center">
                 <input
                   id="profileName"
                   className="input is-rounded text-center"
                   placeholder="Nombre"
                   type=""
                   onChange={(e) => setName(e.target.value)}
-                  value={item.userName}
+                  value={name.userName}
                 />
                 Usuario
-              </td>
-            ))}
+              </div>
+             {/* ))} */}
             <input
               id="profileName"
               className="input is-rounded"
               placeholder="Nombre"
               type=""
-              // onChange={(e) => setName(e.target.value)}
-              // value={name}
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
             <a>Nombre</a>
           </div>
-          <div class="has-text-centered has-text-black title is-6">
+          <div className="has-text-centered has-text-black title is-6">
             <input
               id="userName"
-              class="input is-rounded"
+              className="input is-rounded"
               type=""
               placeholder="Usuario"
             />
@@ -157,6 +165,7 @@ function Profile({ history }) {
             <button
               id="confirm"
               className="button-memingo button is-medium is-rounded"
+              // onClick={profileInfo()}
             >
               CONFIRMAR
             </button>

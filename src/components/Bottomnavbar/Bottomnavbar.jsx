@@ -22,30 +22,30 @@ function Bottomnavbar({ history }) {
   return (
     <nav className="navbar is-spaced is-fixed-bottom is-inline-flex is-transparent centered">
       <div className="navbar-item is-flex-touch">
-        <a className="item">
+        <figure className="item">
           <img
             id="home"
             src="https://i.ibb.co/C0y75x1/home-rgb2.png"
             className="material-icons"
             onClick={() => feed()}
           />
-        </a>
-        <a className="item">
+        </figure>
+        <figure className="item">
           <img
             id="add"
             src="https://i.ibb.co/6DBT2jD/add-rgb2.png"
             className="material-icons"
             onClick={() => upload()}
           />
-        </a>
-        <a className="item">
+        </figure>
+        <figure className="item">
           <img
             id="myProfile"
             src="https://i.ibb.co/vkqHbpD/profile-rgb2.png"
             className="material-icons"
             onClick={() => profile()}
           />
-        </a>
+        </figure>
       </div>
     </nav>
   );

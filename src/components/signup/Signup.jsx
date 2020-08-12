@@ -15,25 +15,28 @@ function Signup({ history }) {
   const [pass, setPass] = useState("");
   const [error, setError] = useState(null);
 
-  const signUp = useCallback(() => {
-    app
-      .auth()
-      .createUserWithEmailAndPassword(email, pass)
-      .then(() => {
+  const signUp = useCallback(async() => {
+    try{
+ 
+     const res = await app.auth().createUserWithEmailAndPassword(email, pass)
+        await db.collection('user').doc(res.user.uid).set({
+          email: res.user.email,
+          uid: res.user.uid
+        })
+        
         setEmail("");
         setPass("");
         setError(null);
-        const uid = app.auth().currentUser.uid;
-        const getUser = {
-          email: email,
-          userName: '',
-          uid: uid,
-        }
-        db.collection("user").add(getUser);
+        // const uid = app.auth().currentUser.uid;
+        // const getUser = {
+        //   email: email,
+        //   userName: '',
+        //   uid: uid,
+        // }
+        // db.collection("user").add(getUser);
         history.push("/Profile");
         console.log("Entraste");
-      })
-      .catch((error) => {
+      } catch (error) {
         switch (error.code) {
           case "auth/invalid-email":
             setError("El formato del email es incorrecto");
@@ -45,18 +48,16 @@ function Signup({ history }) {
             setError("Este email ya esta en uso");
             break;
           case "auth/wrong-password":
-            setError(
-              "La contraseña es incorrecta o el usuario no tiene password"
-            );
+            setError("La contraseña es incorrecta o el usuario no tiene password");
             break;
           case "auth/user-not-found":
             setError("Usuario no encontrado");
             break;
           default:
             return;
-        }
-      });
-  }, [email, pass, history]);
+      }
+   }
+  });
 
   const signIn = () => {
     history.push("/");
@@ -64,7 +65,7 @@ function Signup({ history }) {
   return (
     <section className="section background-login">
       <div>
-      <WithAuthRoute/>
+      {/* <WithAuthRoute/> */}
         <img alt="title" src={title} className="main-logo" />
       </div>
       <div className="has-text-centered has-text-white title is-4 ">
@@ -137,7 +138,7 @@ function Signup({ history }) {
       </div>
       <div className="buttons file is-centered ">
         <Facebook />
-        <Google />
+        <Google history={history}/>
       </div>
       <div className=" has-text-centered has-text-white">
         <p> ¿Ya tienes cuenta? </p>{" "}
