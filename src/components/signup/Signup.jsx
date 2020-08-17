@@ -34,7 +34,7 @@ function Signup({ history }) {
         //   uid: uid,
         // }
         // db.collection("user").add(getUser);
-        history.push("/Profile");
+        history.push("/EditProfile");
         console.log("Entraste");
       } catch (error) {
         switch (error.code) {

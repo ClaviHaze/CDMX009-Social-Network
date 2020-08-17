@@ -1,14 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 
 import "../../assets/styles/Navs.css";
 
 function Bottomnavbar({ history }) {
-  useEffect(() => {
-    document.body.className = 'bottom-space';
-    return () => { document.body.className = ''; }
-  });
-
   const upload = () => {
     history.push("/Upload");
   };

@@ -12,7 +12,7 @@ import Signup from "./components/signup/Signup";
 import Profile from "./components/profile/Profile";
 import Feed from "./components/feed/Feed";
 import Upload from "./components/upload/Upload";
-import Topnavbar from "./components/Topnavbar/Topnavbar";
+import EditProfile from "./components/editProfile/EditProfile";
 import "./App.sass";
 
 function App() {
@@ -21,10 +21,10 @@ function App() {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log("esta es la 24", user);
       if (user) {
         setFirebaseUser(user);
-        console.log(firebaseUser);
+        console.log(firebaseUser)
+        // console.log(firebaseUser);
       } else {
         setFirebaseUser(null);
       }
@@ -59,14 +59,14 @@ function App() {
         <Route path="/Profile">
           <Profile userName={userName} setUserName={setUserName} firebaseUser={firebaseUser} setFirebaseUser={setFirebaseUser}/>
         </Route>
-        <Route path="/Topnavbar">
-          <Topnavbar />
-        </Route>
         <Route path="/Upload">
           <Upload />
         </Route>
         <Route path="/Feed">
           <Feed />
+        </Route>
+        <Route path="/EditProfile">
+          <EditProfile />
         </Route>
       </Switch>
     </Router>
