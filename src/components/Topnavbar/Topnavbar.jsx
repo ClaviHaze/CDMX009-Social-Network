@@ -3,7 +3,8 @@ import { withRouter } from "react-router-dom";
 
 import "../../assets/styles/Navs.css";
 
-function Topnavbar({ name }) {
+function Topnavbar({ userName }) {
+  // console.log("holi crayolini",userName);
   return (
     <nav className="navbar is-fixed-top media">
       <div className="file is-centered">
@@ -16,7 +17,8 @@ function Topnavbar({ name }) {
         </figure>
       </div>
       <div className="media-content">
-        <p id="profileUserNameSaved" className="title is-4" placeholder="Name">{name}</p>
+      {/* <p> {userName.map(item => <div>Nombre: {item.userName}</div>)}</p> */}
+        <p id="profileUserNameSaved" className="title is-4" placeholder="Name">@{userName}</p>
       </div>
       <div className="navbar-end">
         <figure className="image is-64x64">

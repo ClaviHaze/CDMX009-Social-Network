@@ -19,6 +19,7 @@ function Google({ history }) {
           email: user.email,
           uid: user.uid,
           name: user.displayName,
+          userName: user.displayName,
           photo: user.photoURL
         })       
       })

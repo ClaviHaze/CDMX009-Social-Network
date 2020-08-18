@@ -13,11 +13,13 @@ import Profile from "./components/profile/Profile";
 import Feed from "./components/feed/Feed";
 import Upload from "./components/upload/Upload";
 import EditProfile from "./components/editProfile/EditProfile";
+
 import "./App.sass";
 
 function App() {
   const [firebaseUser, setFirebaseUser] = useState(false);
   const [userName, setUserName] = useState("");
+  console.log("aloooo", userName);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -63,11 +65,14 @@ function App() {
           <Upload />
         </Route>
         <Route path="/Feed">
-          <Feed />
+          <Feed 
+          userName={userName} setUserName={setUserName}
+          />
         </Route>
         <Route path="/EditProfile">
-          <EditProfile />
+          <EditProfile userName={userName} setUserName={setUserName} />
         </Route>
+       
       </Switch>
     </Router>
   ) : (

@@ -4,9 +4,9 @@ import { withRouter } from "react-router-dom";
 import { db, app, auth, storage } from "../firebase/firebase";
 import Bottomnavbar from "../../components/Bottomnavbar/Bottomnavbar";
 
-function EditProfile({ history, firebaseUser }) {
+function EditProfile({ history, firebaseUser, userName, setUserName }) {
   const [name, setName] = useState([]);
-  const [userName, setUserName] = useState("");
+  // const [userName, setUserName] = useState("");
   const [bio, setBio] = useState("");
   const [gender, setGender] = useState("");
   // const [photo, setPhoto] = useState("");
@@ -22,6 +22,30 @@ function EditProfile({ history, firebaseUser }) {
     });
     history.push("/Profile");
   };
+
+  const editProfPic = async (editPhoto) => {
+      const userUid = app.auth().currentUser.uid;
+      const imagenRef = await storage.ref().child(userUid).child('Foto Perfil')
+      await imagenRef.put(editPhoto)
+      const imgURL = await imagenRef.getDownloadURL()
+      await db.collection('user').doc(userUid).update({
+        photo: imgURL
+      })
+      // const user={
+      //   ...user,
+      //   photo: imgURL,
+     
+      // }
+      console.log('foto', imgURL)
+    }
+    // editProfPic()
+    const selectPhoto = e =>{
+      const imageSRC = e.target.files[0]
+      console.log('imagen',e.target.files[0])
+      if(imageSRC.type === "image/png" || imageSRC.type === "image/jpg"){
+           editProfPic(imageSRC)
+      }
+    }
 
   useEffect(() => {
     document.body.className = 'bottom-space';
@@ -53,14 +77,14 @@ function EditProfile({ history, firebaseUser }) {
             type="file"
             accept="image/x-png,image/gif,image/jpeg"
             name="profile"
-            onChange={(e) => e.target.value}
+            onChange={(e) => selectPhoto(e)}
             // value={photo}
           />
           <span className="file-cta">
             <span className="file-icon">
               <i className="fas fa-upload"></i>
             </span>
-            <span className="file-label">Editar foto de perfil</span>
+            <span className="file-label" htmlFor='profilePicture'>Editar foto de perfil</span>
           </span>
         </label>
       </div>
