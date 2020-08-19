@@ -28,9 +28,9 @@ function Upload({ history, userName, postURL }) {
       const postRef = await storage.ref().child(uid)
       await postRef.put(createNewPost)
       const postURL = await postRef.getDownloadURL()
-      // await db.collection('post').add({
-      //   post: postURL
-      // })
+      await db.collection('post').doc(uid).add({
+      post: postURL
+      })
       console.log('post!', postURL);
     }
     const selectPost = e => {

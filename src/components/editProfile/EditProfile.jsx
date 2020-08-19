@@ -23,8 +23,6 @@ function EditProfile({ history, firebaseUser, userName, setUserName }) {
     history.push("/Profile");
   };
 
-
-
   const editProfPic = async (editPhoto) => {
       const userUid = app.auth().currentUser.uid;
       const imagenRef = await storage.ref().child(userUid).child('Foto Perfil')

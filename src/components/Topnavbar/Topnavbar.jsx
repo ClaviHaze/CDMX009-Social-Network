@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { db, app } from "../firebase/firebase";
+import useDataFetch from "../../hooks/useDataFetch.js"
+// import { db, app } from "../firebase/firebase";
 
 import "../../assets/styles/Navs.css";
 
-const getProfileName = async () => {
-  const uid = app.auth().currentUser.uid;
-  const doc = await db.collection('user').doc(uid).get()
-  return doc.data().userName
-};
+// const getProfileData = async () => {
+//   const uid = app.auth().currentUser.uid;
+//   const doc = await db.collection('user').doc(uid).get()
+//   return doc.data()
+// };
 
 function Topnavbar({  }) {
+  const { getProfileData } = useDataFetch();
   const [userName, setUserName] = useState();
-  getProfileName().then((newUserName) => {
-    setUserName(newUserName)
+  const [profilePic, setProfilePic] = useState();
+  getProfileData()
+  .then((profileData) => {
+    setUserName(profileData.userName)
+    setProfilePic(profileData.photo)
   });
-  
 
   return (
     <nav className="navbar is-fixed-top nav-align media">
@@ -24,7 +28,11 @@ function Topnavbar({  }) {
           <img
             id="profilePic"
             className="is-rounded"
-            src="https://i.ibb.co/F77rJHx/hombre2.jpg"
+            src={
+                  profilePic
+                  ? (profilePic)
+                  : ('https://i.ibb.co/F77rJHx/hombre2.jpg')
+                }
           />
         </figure>
       </div>
