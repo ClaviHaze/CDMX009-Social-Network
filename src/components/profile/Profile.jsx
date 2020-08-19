@@ -26,6 +26,8 @@ function Profile({ history, firebaseUser }) {
     const getData = async () => {
       try {
         const uid = app.auth().currentUser.uid;
+        // https://firebase.google.com/docs/firestore/query-data/get-data
+        // const data = await db.collection("user").doc(uid).get();
         const data = await db.collection("user").where("uid", "==", uid).get();
         console.log(data.docs);
         const arrayData = data.docs.map((doc) => ({
@@ -35,6 +37,7 @@ function Profile({ history, firebaseUser }) {
         // console.log("name", name.name)
         // setName(arrayData);
         setName(arrayData);
+        // console.log('la data',arrayData);
 
        
         // arrayData.forEach((product) => {
@@ -45,7 +48,7 @@ function Profile({ history, firebaseUser }) {
     };
     getData();
   }, []);
-  console.log('array',name);
+  // console.log('array',name);
  
 
   //  const profileInfo = async () => {
@@ -93,7 +96,11 @@ function Profile({ history, firebaseUser }) {
       <div className="file is-centered">
         <figure className="image is-128x128">
         {/* <img id="profilePic" class="is-rounded" src="https://i.ibb.co/F77rJHx/hombre2.jpg"/> */}
-        <div className="file is-centered">  <p> {name.map(item => <div><img className='is-rounded' src={item.photo} alt=''  /></div>)}</p></div>
+        <div className="file is-centered">  <p>
+          {name.length === 1 && name[0] && (
+            <div><img className='is-rounded' src={name[0].photo} alt=''  /></div>
+          )}
+        </p></div>
         </figure>
       </div>
       {/* <div className="file is-centered">

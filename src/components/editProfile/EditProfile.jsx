@@ -23,6 +23,8 @@ function EditProfile({ history, firebaseUser, userName, setUserName }) {
     history.push("/Profile");
   };
 
+
+
   const editProfPic = async (editPhoto) => {
       const userUid = app.auth().currentUser.uid;
       const imagenRef = await storage.ref().child(userUid).child('Foto Perfil')
@@ -42,9 +44,9 @@ function EditProfile({ history, firebaseUser, userName, setUserName }) {
     const selectPhoto = e =>{
       const imageSRC = e.target.files[0]
       console.log('imagen',e.target.files[0])
-      if(imageSRC.type === "image/png" || imageSRC.type === "image/jpg"){
+      // if(imageSRC.type === "image/png" || imageSRC.type === "image/jpg"){
            editProfPic(imageSRC)
-      }
+      // }
     }
 
   useEffect(() => {

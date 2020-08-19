@@ -9,6 +9,7 @@ useEffect(() => {
   if (auth.currentUser) {
     console.log("vive");
     setUser(auth.currentUser);
+    // history.push("/Profile");
   } else {
     console.log("no vive");
     history.push("/");

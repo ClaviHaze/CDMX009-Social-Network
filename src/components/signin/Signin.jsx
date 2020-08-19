@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState, useCallback, useEffect } from "react";
+import { withRouter, redi } from "react-router-dom";
 import firebase from "../../components/firebase/firebase";
-import { auth } from "../firebase/firebase";
+import { auth, app } from "../firebase/firebase";
 
 import Facebook from "../../components/facebook/Facebook";
 import Google from "../../components/google/Google";
@@ -14,6 +14,12 @@ function Signin({ history }) {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (app.auth().currentUser) {
+      history.push('/Profile')
+    }
+  }, [app.auth().currentUser])
 
   const signIn = useCallback(() => {
     auth

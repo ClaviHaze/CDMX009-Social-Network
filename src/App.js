@@ -19,7 +19,6 @@ import "./App.sass";
 function App() {
   const [firebaseUser, setFirebaseUser] = useState(false);
   const [userName, setUserName] = useState("");
-  console.log("aloooo", userName);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -59,14 +58,21 @@ function App() {
           <Signup />
         </Route>
         <Route path="/Profile">
-          <Profile userName={userName} setUserName={setUserName} firebaseUser={firebaseUser} setFirebaseUser={setFirebaseUser}/>
+          <Profile 
+          userName={userName} 
+          setUserName={setUserName} 
+          firebaseUser={firebaseUser} 
+          setFirebaseUser={setFirebaseUser}/>
         </Route>
         <Route path="/Upload">
-          <Upload />
+          <Upload 
+          userName={userName}
+          />
         </Route>
         <Route path="/Feed">
           <Feed 
-          userName={userName} setUserName={setUserName}
+          userName={userName} 
+          setUserName={setUserName}
           />
         </Route>
         <Route path="/EditProfile">

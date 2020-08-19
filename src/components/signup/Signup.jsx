@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { auth, app, db } from "../firebase/firebase";
 import firebase from "../../components/firebase/firebase";
@@ -14,6 +14,12 @@ function Signup({ history }) {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (app.auth().currentUser) {
+      history.push('/Profile')
+    }
+  }, [app.auth().currentUser])
 
   const signUp = useCallback(async() => {
     try{
