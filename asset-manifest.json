@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/CDMX009-Social-Network/static/css/main.1c8980c5.chunk.css",
+    "main.js": "/CDMX009-Social-Network/static/js/main.4186ddad.chunk.js",
+    "main.js.map": "/CDMX009-Social-Network/static/js/main.4186ddad.chunk.js.map",
+    "runtime-main.js": "/CDMX009-Social-Network/static/js/runtime-main.6c4b9405.js",
+    "runtime-main.js.map": "/CDMX009-Social-Network/static/js/runtime-main.6c4b9405.js.map",
+    "static/js/2.4ab310dd.chunk.js": "/CDMX009-Social-Network/static/js/2.4ab310dd.chunk.js",
+    "static/js/2.4ab310dd.chunk.js.map": "/CDMX009-Social-Network/static/js/2.4ab310dd.chunk.js.map",
+    "index.html": "/CDMX009-Social-Network/index.html",
+    "precache-manifest.f49d187cabc232b7b212dc6e6a6fc2df.js": "/CDMX009-Social-Network/precache-manifest.f49d187cabc232b7b212dc6e6a6fc2df.js",
+    "service-worker.js": "/CDMX009-Social-Network/service-worker.js",
+    "static/css/main.1c8980c5.chunk.css.map": "/CDMX009-Social-Network/static/css/main.1c8980c5.chunk.css.map",
+    "static/js/2.4ab310dd.chunk.js.LICENSE.txt": "/CDMX009-Social-Network/static/js/2.4ab310dd.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6c4b9405.js",
+    "static/js/2.4ab310dd.chunk.js",
+    "static/css/main.1c8980c5.chunk.css",
+    "static/js/main.4186ddad.chunk.js"
+  ]
+}
