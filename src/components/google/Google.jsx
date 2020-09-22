@@ -4,7 +4,7 @@ import { auth, app, db } from "../firebase/firebase";
 import Profile from '../../components/profile/Profile';
 
 
-function Google({ history }) {
+function Google({ history, userName }) {
   const signUpGoogle = useCallback(() => {
     const providerGoogle = new app.auth.GoogleAuthProvider();
     app
@@ -13,15 +13,19 @@ function Google({ history }) {
       .then(function (result) {
         const token = result.credential.accessToken;
         const user = result.user;
-        console.log("holaaa",user)
+        console.log("holaaa",user.email)
         history.push("/Profile")
-        db.collection('user').doc(user.uid).set({
-          email: user.email,
-          uid: user.uid,
-          name: user.displayName,
-          userName: user.displayName,
-          photo: user.photoURL
-        })       
+       
+          // db.collection('user').doc(user.uid).set({
+          //   email: user.email,
+          //   uid: user.uid,
+          //   name: user.displayName,
+          //   userName: user.displayName,
+          //   photo: user.photoURL
+          // })  
+
+         
+        
       })
       .catch(function (error) {
         const errorCode = error.code;
@@ -38,6 +42,7 @@ function Google({ history }) {
         className="button is-medium is-google"
         onClick={(e) => signUpGoogle()}
       >
+     
         <span className="icon">
           <i className="fab fa-google"> </i>
         </span>

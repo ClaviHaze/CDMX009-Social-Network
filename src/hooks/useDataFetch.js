@@ -6,8 +6,20 @@ function useDataFetch() {
         const doc = await db.collection('user').doc(uid).get();
         return doc.data();
     };
+    // const getPostsData = async () => {
+    //     const data = await db.collection('posts').orderBy('postTime', 'desc').get();
+    //     const allPosts = data.docs.map((doc) => (
+    //             {
+    //             id: doc.id,
+    //             ...doc.data(),
+    //             }
+    //         )
+    //     );
+    //     return allPosts;
+    // };
     return {
         getProfileData,
+        // getPostsData,
     };
 };
 

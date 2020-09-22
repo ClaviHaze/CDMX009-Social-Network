@@ -1,44 +1,63 @@
 import React, { useEffect, useState } from "react";
 import WithAuthRoute from "../../WithAuthRoute";
 import { withRouter } from "react-router-dom";
+import useDataFetch from "../../hooks/useDataFetch";
 import { db, app, auth, storage } from "../firebase/firebase";
+import shortid from "shortid";
 import Bottomnavbar from "../../components/Bottomnavbar/Bottomnavbar";
 import Topnavbar from "../../components/Topnavbar/Topnavbar";
 
-function Upload({ history, userName, postURL }) {
-    const [message, setMessage] = useState('');
+function Upload({ history }) {
+  const { getProfileData } = useDataFetch();
+    const [userName, setUserName] = useState();
+    const [caption, setCaption] = useState('');
     const [privacy, setPrivacy] = useState("");
+    const [url, setUrl] = useState("");
+    const [post, setPost] = useState ();
 
-    const messagePost = async () => {
+    getProfileData().then((profileData) => {
+      setUserName(profileData.userName);
+    })
+
+    const postCaption = async () => {
       const uid = app.auth().currentUser.uid;
       await db.collection("post").add({
-          // userName: userName,
+          userName: userName,
           uid: uid,
           postTime: new Date(),
-          message: message,
+          id: shortid.generate(),
+          caption: caption,
           privacy: privacy,
-          // url: postURL, 
+          url: url, 
+          post: post,
       });
       console.log('se subió');
       history.push("/Feed");
   };
-
-    const createPost = async (createNewPost) => {
-      const uid = app.auth().currentUser.uid;
-      const postRef = await storage.ref().child(uid)
-      await postRef.put(createNewPost)
-      const postURL = await postRef.getDownloadURL()
-      await db.collection('post').doc(uid).add({
-      post: postURL
-      })
-      console.log('post!', postURL);
-    }
     const selectPost = e => {
       const postSRC = e.target.files[0]
       console.log('post', e.target.files[0])
-      // if(postSRC.type === "image/pgn" || postSRC.type === "image/jpg"){
+      // if(postSRC.type === ("image/pgn" || "image/jpg" || "image/gif")){
         createPost(postSRC)
+        setPost(postSRC.name)
       // }
+    }
+    // // console.log("pinche post",post)
+    const createPost = async (createNewPost) => {
+      const uid = app.auth().currentUser.uid;
+      const id = shortid;
+      const postRef = storage.ref(`post-image/${post}`)
+      postRef.put(createNewPost)
+      const postURL = await postRef.getDownloadURL()
+      setUrl(postURL.name);
+      // db.collection('user').add(postURL);
+      // db.collection("post").add({
+      // post: postURL,
+      // id: shortid.generate(),
+      // uid: uid
+      // })
+      console.log('post!', postURL);
+      console.log("perra imagen",post)
     }
 
   useEffect(() => {
@@ -83,8 +102,8 @@ function Upload({ history, userName, postURL }) {
           className="input is-hovered"
           placeholder="Agrega un pie de foto"
           rows="5"
-          onChange={(e) => setMessage(e.target.value)}
-          value={message}
+          onChange={(e) => setCaption(e.target.value)}
+          value={caption}
         />
       </div>
       <div>
@@ -104,7 +123,7 @@ function Upload({ history, userName, postURL }) {
           <i className="fas fa-check"></i>
         </span>
         <span
-        onClick={(e) => messagePost()}
+        onClick={(e) => postCaption()}
         >Compartir</span>
       </button>
       <Bottomnavbar />

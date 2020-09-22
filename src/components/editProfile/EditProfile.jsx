@@ -94,6 +94,18 @@ function EditProfile({ history, firebaseUser, userName, setUserName }) {
             <h3> Editar </h3>
           </div>
           <div className="has-text-centered has-text-black title is-6">
+              {name.length === 1 && name[0] && (
+            <input
+            // type="password"
+            className="input form-rounded"
+            // id="password"
+            // placeholder={name[0].name}
+            // onChange={name[0].name}
+            defaultValue={name[0].name}
+          />
+            // <div>Nombre:{name[0].name}</div>
+          
+          )}
             <input
               id="profileName"
               className="input is-rounded"

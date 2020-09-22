@@ -19,6 +19,7 @@ function Bottomnavbar({ history }) {
       <div className="navbar-item is-flex-touch">
         <figure className="item">
           <img
+            alt="home"
             id="home"
             src="https://i.ibb.co/C0y75x1/home-rgb2.png"
             className="material-icons"
@@ -27,6 +28,7 @@ function Bottomnavbar({ history }) {
         </figure>
         <figure className="item">
           <img
+            alt="add"
             id="add"
             src="https://i.ibb.co/6DBT2jD/add-rgb2.png"
             className="material-icons"
@@ -35,6 +37,7 @@ function Bottomnavbar({ history }) {
         </figure>
         <figure className="item">
           <img
+            alt="profile"
             id="myProfile"
             src="https://i.ibb.co/vkqHbpD/profile-rgb2.png"
             className="material-icons"

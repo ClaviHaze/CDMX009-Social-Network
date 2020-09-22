@@ -4,11 +4,11 @@ import { withRouter } from "react-router-dom";
 import { db, app, auth, storage } from "../firebase/firebase";
 import Bottomnavbar from "../../components/Bottomnavbar/Bottomnavbar";
 
-function Profile({ history, firebaseUser }) {
+function Profile({ history, firebaseUser , userName, setUserName}) {
   const [name, setName] = useState([]);
   // const [userName, setUserName] = useState("");
-  // const [bio, setBio] = useState("");
-  // const [gender, setGender] = useState("");
+  const [bio, setBio] = useState("");
+  const [gender, setGender] = useState("");
   // const [photo, setPhoto] = useState("");
 
   const logOut = () => {
@@ -16,11 +16,14 @@ function Profile({ history, firebaseUser }) {
       history.push("/");
     });
   };
+
   const editProf = () => {
   
       history.push("/Editprofile");
   
   };
+  
+
 
   useEffect(() => {
     const getData = async () => {
@@ -29,7 +32,8 @@ function Profile({ history, firebaseUser }) {
         // https://firebase.google.com/docs/firestore/query-data/get-data
         // const data = await db.collection("user").doc(uid).get();
         const data = await db.collection("user").where("uid", "==", uid).get();
-        console.log(data.docs);
+        // const data = await db.collection("user").doc(uid).get().get();
+        // console.log('data',data.docs);
         const arrayData = data.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -37,6 +41,7 @@ function Profile({ history, firebaseUser }) {
         // console.log("name", name.name)
         // setName(arrayData);
         setName(arrayData);
+        
         // console.log('la data',arrayData);
 
        
@@ -48,7 +53,7 @@ function Profile({ history, firebaseUser }) {
     };
     getData();
   }, []);
-  // console.log('array',name);
+ 
  
 
   //  const profileInfo = async () => {
@@ -99,7 +104,9 @@ function Profile({ history, firebaseUser }) {
         <div className="file is-centered">  <p>
           {name.length === 1 && name[0] && (
             <div><img className='is-rounded' src={name[0].photo} alt=''  /></div>
+         
           )}
+         
         </p></div>
         </figure>
       </div>
@@ -129,6 +136,7 @@ function Profile({ history, firebaseUser }) {
           Cerrar Sesión{" "}
         </a>
       </div>
+     
       <div className="file is-centered">
         <div className="control">
           <div className="has-text-centered has-text-black title is-9">
@@ -139,11 +147,34 @@ function Profile({ history, firebaseUser }) {
        
           Editar
         </a>
+       
       </div>
       <br></br>
+
           <div className="field">
             <div className="has-text-centered has-text-black title is-6">
          
+           
+            {/* <input
+            id="profileName"
+              className="input is-rounded"
+              // placeholder="Nombre"
+           
+            // id="password"
+            // placeholder={name[0].name}
+            
+            // defaultValue={name[0].name}
+            onChange={(e) => setName(e.target.value)}
+          /> */}
+            {/* // <div>Nombre:{name[0].name}</div> */}
+          
+        
+
+{/* {name.length === 1 && name[0] && (
+           <div>{name[0].name}</div>
+     
+         
+         )} */}
 
               {/* {name.map((item) => ( */}
               {/* <div className="text-center"> */}
